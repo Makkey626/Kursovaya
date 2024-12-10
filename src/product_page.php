@@ -26,7 +26,7 @@ if ($product_id > 0) {
         $imagePath = $product["image"];  // путь к изображению
     } else {
         // Если товар не найден, показываем ошибку
-        echo "Товар не найден.";
+        header('Location: index.php');
         exit();
     }
     $stmt->close();
