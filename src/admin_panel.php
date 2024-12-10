@@ -142,6 +142,17 @@
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin-top: 40px"><button class="btn_log" type="submit"><b>Добавить товар</b></button></div>
+                            <?php
+                             echo '<div style="display: flex; justify-content: center; margin-top: 40px">';
+                                if (isset($_GET['success']) && $_GET['success'] == 'true') {
+                                    echo '<p style="color: green;">Товар успешно добавлен!</p>';
+                                }
+
+                                if (isset($_GET['error'])) {
+                                    echo '<p style="color: red;">' . htmlspecialchars($_GET['error']) . '</p>';
+                                }
+                            echo '</div>'
+                            ?>
                         </form>  
                     </div>      
                 </div>
