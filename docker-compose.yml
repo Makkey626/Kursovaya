@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: php_web
+    ports:
+      - "80:80"  # Проброс порта 80 для доступа через браузер
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - webnet
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/my_database.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - webnet
+
+volumes:
+  db_data:
+
+networks:
+  webnet:
+    driver: bridge
