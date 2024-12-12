@@ -145,18 +145,24 @@ $conn->close();
         <div class="inner">
             <div class="row">
                 <div class="col col-8">
-                    <div style="margin-top: 30px;">
-                        <p class ="add_p new_add_p">Рекомендуем к покупке:</p>
-                        <hr>
-                        <div class="carousel">
-                            <button id="prevBtn">←</button>
-                            <div class="carousel-container" id="carouselContainer">
-                            <!-- Товары будут добавлены здесь динамически -->
-                            </div>
-                            <button id="nextBtn">→</button>
-                        </div>
+                    <div style="margin-top: 30px; margin-bottom: 15px"><p class="p_category"><i>Оставьте свой комментарий!</i></p><hr></div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div>
+        <div class="inner">
+            <div class="row">
+                <div class="col col-4">
+                    <div class = "add_comment">
+                        <form action="" method="POST">
+                            <textarea class="admin_text_area" style="margin-left: 0; padding-bottom: 0;" name="comment" placeholder="Ваш комментарий" rows="5" required></textarea>
+                            <button class ="btn_log" style ="width: 50%; padding-top: 10px;" type="submit" name="submit_comment">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-4"></div>
         </div>
     </div>
 

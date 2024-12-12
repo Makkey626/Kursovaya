@@ -457,3 +457,11 @@
 .check_admin{
     padding-top: 7px;
 }
+
+.add_comment{
+    width: 100%;
+    background-color: rgb(237, 255, 254);
+    border: 1px solid rgb(176, 229, 255);
+    border-radius: 8px;
+    text-align: center;
+}
