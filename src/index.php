@@ -1,3 +1,9 @@
+<?php
+include 'php_script/get_product.php';
+$flags_products = getProductsByCategory('funny');
+$military_products = getProductsByCategory('military');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,6 +135,21 @@
                 <div class="col col-6">
                    <div class="main_header1">  <b>Шевроны и нашивки с приколами, прикольные надписи, смешная вышивка</b> <hr></div>
                     <div class="main">
+                    <?php foreach ($flags_products as $product): ?>
+                        <div class="shop">
+                            <div class="shop_photo">
+                                <img src="<?php echo htmlspecialchars($product['image']); ?>" width="64%">
+                            </div>
+                            <p style="color: #c5c5c5;">
+                                <b><?php echo htmlspecialchars($product['name']); ?></b>
+                            </p>
+                            <p class="p_shop">№-<?php echo $product['id']; ?></p>
+                            <p class="p_shop" style="font-size: 20px;">
+                                <b><?php echo $product['price']; ?> руб.</b>
+                            </p>
+                            <a href="product_page.php?id=<?php echo $product['id']; ?>"><button class="button_shop">В корзину</button></a>
+                        </div>
+                    <?php endforeach; ?>
                     </div>
                     <div class="main_header1"><b>Нашивки флаги<hr></b></div>
                     <div class="main">

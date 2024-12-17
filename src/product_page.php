@@ -27,12 +27,11 @@ if ($product_id > 0) {
     } else {
         // Если товар не найден, показываем ошибку
         header('Location: index.php');
-        exit();
     }
     $stmt->close();
 } else {
     // Если ID товара не передан
-    echo "Неверный ID товара.";
+    header("Location: index.php");
     exit();
 }
 
@@ -161,8 +160,10 @@ $conn->close();
                         </form>
                     </div>
                 </div>
+                <div class="col col-4">
+                    <div class="add_comment">adas</div>
+                </div>
             </div>
-            <div class="col col-4"></div>
         </div>
     </div>
 

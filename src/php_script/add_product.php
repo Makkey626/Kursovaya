@@ -1,7 +1,18 @@
 <?php
-ob_start(); // Начало буферизации вывода
 
 include 'db_connect.php';
+
+// Ассоциативный массив для перевода категорий
+$category_translation = [
+    'funny' => 'Забавные',
+    'flags' => 'Флаги',
+    'military' => 'Военные',
+];
+$shape_translation = [
+    'square' => 'Квадрат',
+    'circle' => 'Круг',
+    'triangle' => 'Треугольник',
+];
 
 // Проверка, что форма была отправлена
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,6 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $_POST['category'];
     $description = $_POST['description'];
 
+    // Преобразуем категорию в русский язык
+    if (isset($category_translation[$category])) {
+        $category = $category_translation[$category];
+    }
+
+    if (isset($shape_translation[$shape])) {
+        $shape = $shape_translation[$shape];
+    }
     // Обработка изображения
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $image_name = $_FILES['image']['name'];
@@ -66,5 +85,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $conn->close();
-ob_end_flush(); // Завершение буферизации
 ?>
