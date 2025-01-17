@@ -59,6 +59,11 @@ $conn->close();
                         <p class="p_info_text">+78005553535</p>
                     </div>
                 </div>
+                <div class="col col-3">
+                    <a href="php_script/delete_product.php?id=<?= $product['id'] ?>" onclick="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                        <button class="button_shop">Удалить товар</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

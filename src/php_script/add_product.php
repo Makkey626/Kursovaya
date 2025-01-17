@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $image_name = $_FILES['image']['name'];
         $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_path = 'uploads/' . $image_name; // Папка для хранения изображений
+        $image_path = '../uploads/' . $image_name; // Папка для хранения изображений
 
         // Проверка наличия папки и создание, если нет
         if (!file_exists('../uploads/')) {
