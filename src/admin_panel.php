@@ -100,7 +100,6 @@
                                         <p class="p_admin_panel">Артикул:</p>
                                         <p class="p_admin_panel">Цена:</p>
                                         <p class="p_admin_panel">Цвет:</p>
-                                        <p class="p_admin_panel">Форма:</p>
                                         <p class="p_admin_panel">Категория:</p>
                                     </div>
                                     <div style="width: 50%">
@@ -116,22 +115,18 @@
                                             <option value="Синий">Синий</option>
                                             <option value="Чёрный">Чёрный</option>
                                         </select>
-                                        <select class="select_admin" name="shape" id="">
-                                            <option value="Квадрат">Квадрат</option>
-                                            <option value="Прямоугольник">Прямоугольник</option>
-                                        </select>
-                                        <select class="select_admin" name="category" id="">
-                                            <option value="flags">Нашивки флаги</option>
-                                            <option value="velcro">На липучке</option>
-                                            <option value="military">Военные</option>
-                                            <option value="medic">Медик</option>
-                                            <option value="blood">Группа крови</option>
-                                            <option value="back">На спину</option>
-                                            <option value="biker">Байкерские</option>
-                                            <option value="funny">Прикольные</option>
-                                            <option value="kids">Детские</option>
-                                            <option value="applique">Аппликация</option>
-                                            <option value="small">Маленькие</option>
+                                        <select class="select_admin" name="category" id="category">
+                                            <option value="Флаги">Флаги</option>
+                                            <option value="На липучке">На липучке</option>
+                                            <option value="Военные">Военные</option>
+                                            <option value="Медик">Медик</option>
+                                            <option value="Группа крови">Группа крови</option>
+                                            <option value="На спину">На спину</option>
+                                            <option value="Байкерские">Байкерские</option>
+                                            <option value="Прикольные">Прикольные</option>
+                                            <option value="Детские">Детские</option>
+                                            <option value="Аппликация">Аппликация</option>
+                                            <option value="Маленькие">Маленькие</option>
                                         </select>
                                     </div>
                                 </div> 

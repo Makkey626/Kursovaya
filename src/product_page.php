@@ -19,7 +19,6 @@ if ($product_id > 0) {
         $name = $product["name"];
         $article = $product["article"];
         $color = $product["color"];
-        $shape = $product["shape"];
         $new_category = $product["category"];
         $description = $product["description"];
         $price = $product["price"];
@@ -127,7 +126,6 @@ $conn->close();
                     <h1 class="add_h1"> Нашивка:  <?php echo htmlspecialchars($name); ?></h1>
                     <p class="add_p"><b>Артикул:</b> №-<?php echo htmlspecialchars($article); ?></p>
                     <p class="add_p"><b>Цвет:</b> <?php echo htmlspecialchars($color); ?></p>
-                    <p class="add_p"><b>Форма:</b> <?php echo htmlspecialchars($shape); ?></p>
                     <p class="add_p"><b>Категория:</b> <?php echo htmlspecialchars($new_category); ?></p>
                     <p class="add_p"><b>Описание:</b></p>
                     <p class="add_p new_add_p"><?php echo nl2br(htmlspecialchars($description)); ?></p>
