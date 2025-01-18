@@ -1,7 +1,6 @@
 <?php
-// Подключение к базе данных
+include 'php_script/admin_check.php';
 include 'php_script/db_connect.php';
-
 // Получаем ID товара из GET-параметра
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -59,10 +58,16 @@ $conn->close();
                         <p class="p_info_text">+78005553535</p>
                     </div>
                 </div>
-                <div class="col col-3">
-                    <a href="php_script/delete_product.php?id=<?= $product['id'] ?>" onclick="return confirm('Вы уверены, что хотите удалить этот товар?');">
-                        <button class="button_shop">Удалить товар</button>
-                    </a>
+                <div class="col col-3"></div>
+                <div class="col col-2">
+                    <div class = "delete_for">
+                        <?php if (check_admin()): ?>
+                            <form method="POST" action="php_script/delete_product.php" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']); ?>">
+                                <button class="delete_pr" type="submit">Удалить товар</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,9 +89,9 @@ $conn->close();
                             </a>
                         </div>
                         <div class="sub_menu">
-                             <a href="<?php include "../modules.php"?> " class="a_info_header">
-                            <img src="../img/user-svgrepo-com.svg" width="75%" alt="">
-                            <p class="p_menu_text">Кабинет</p>
+                        <a href="<?php echo (isset($_COOKIE['admin']) || isset($_COOKIE['user'])) ? 'dashboard.php' : 'login.php'; ?>" class="a_info_header">
+                                <img src="img/user-svgrepo-com.svg" width="75%" alt="">
+                                <p class="p_menu_text">Кабинет</p>
                             </a>
                         </div>
                         <div class="sub_menu">

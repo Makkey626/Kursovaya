@@ -104,13 +104,13 @@
                         <a class="a_category" href="#"><p class="p_category">>&ensp;Нашивка группа<br>&ensp;&ensp;крови</p></a>
                     </div>
                     <div class="div_category">
-                        <a class="a_category" href="#"><p class="p_category">>&ensp;Нашивки на спину</p></a>
+                        <a class="a_category" href="category.php?category=На спину"><p class="p_category">>&ensp;Нашивки на спину</p></a>
                     </div>
                     <div class="div_category">
                         <a class="a_category" href="#"><p class="p_category">>&ensp;Байкерские нашивки</p></a>
                     </div>
                     <div class="div_category">
-                        <a class="a_category" href="#"><p class="p_category">>&ensp;Прикольные нашивки</p></a>
+                        <a class="a_category" href="category.php?category=Прикольные"><p class="p_category">>&ensp;Прикольные нашивки</p></a>
                     </div>
                     <div class="div_category">
                         <a class="a_category" href="#"><p class="p_category">>&ensp;Нашивки детские</p></a>
@@ -171,9 +171,50 @@
                         // Закрытие соединения
                         $conn->close();
                     ?>
-                    <div class="main_header1"><b>Нашивки флаги<hr></b></div>
-                    <div class="main">
-                    </div>
+                    <?php
+                        // Подключение к базе данных
+                        include 'php_script/db_connect.php';
+
+                        // SQL-запрос для получения последних 4 товаров из категории "забавная"
+                        $sql = "SELECT id, name, article, price, image FROM product WHERE category = 'На спину' ORDER BY id DESC LIMIT 4";
+                        $result = $conn->query($sql);
+
+                        // Проверка, есть ли товары
+                        if ($result && $result->num_rows > 0):
+                        ?>
+                        <div class="main_header1"><b>Нашивки на спину<hr></b></div>
+                        <div class="main">
+                            <?php
+                            // Выводим товары в виде карточек
+                            while ($row = $result->fetch_assoc()):
+                                $id = $row['id']; // ID товара для ссылки
+                                $name = htmlspecialchars($row['name']);
+                                $article = htmlspecialchars($row['article']);
+                                $price = number_format($row['price'], 2, '.', ''); // Форматируем цену
+                                $image = htmlspecialchars($row['image']); // Путь к изображению
+                            ?>
+                            <div class="shop">
+                                <a href="http://whomkky.ru/product_page.php?id=<?= $id ?>" style="text-decoration: none; color: inherit;">
+                                    <div class="shop_photo">
+                                        <img src="<?= $image ?>" width="64%">
+                                    </div>
+                                    <p style="color: #c5c5c5;"><b><?= $name ?></b></p>
+                                    <p class="p_shop">№-<?= $article ?></p>
+                                    <p class="p_shop" style="font-size: 20px;"><b><?= $price ?> руб.</b></p>
+                                </a>
+                                <button class="button_shop">В корзину</button>
+                            </div>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php
+                        else:
+                            // Если товары отсутствуют, выводим сообщение
+                            echo "<p>Нет товаров в категории 'забавная'.</p>";
+                        endif;
+
+                        // Закрытие соединения
+                        $conn->close();
+                    ?>
                     <div class="main_header1"><b>Нашивки флаги<hr></b></div>
                     <div class="main">
                         <div class="shop">
