@@ -58,15 +58,49 @@ $conn->close();
                         <p class="p_info_text">+78005553535</p>
                     </div>
                 </div>
-                <div class="col col-3"></div>
-                <div class="col col-2">
+                <div class="col col-2"></div>
+                <div class="col col-3">
                     <div class = "delete_for">
                         <?php if (check_admin()): ?>
-                            <form method="POST" action="php_script/delete_product.php" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
-                                <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']); ?>">
-                                <button class="delete_pr" type="submit">Удалить товар</button>
-                            </form>
+                            <div class="edit_for">
+                                    <button class="edit_pr" id="editBtn" class="edit_btn">Редактировать товар</button>
+                                </div>
+                            <div class="edit_for">
+                                <form method="POST" action="php_script/delete_product.php" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                                    <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']); ?>">
+                                    <button class="delete_pr" type="submit">Удалить товар</button>
+                                </form>
+                            </div>
                         <?php endif; ?>
+                    </div>
+                    <!-- Модальное окно редактирования -->
+                    <div id="editModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" id="closeModal">&times;</span>
+                            <h2>Редактировать товар</h2>
+                            <form id="editForm" method="POST" action="php_script/edit_product.php">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']); ?>">
+
+                                <label for="name">Название товара:</label>
+                                <input type="text" id="name" name="name" class="input-field" value="<?= htmlspecialchars($name); ?>" required>
+
+                                <label for="article">Артикул:</label>
+                                <input type="text" id="article" name="article" class="input-field" value="<?= htmlspecialchars($article); ?>" required>
+
+                                <label for="color">Цвет:</label>
+                                <input type="text" id="color" name="color" class="input-field" value="<?= htmlspecialchars($color); ?>" required>
+
+                                <label for="category">Категория:</label>
+                                <input type="text" id="category" name="category" class="input-field" value="<?= htmlspecialchars($new_category); ?>" required>
+
+                                <label for="description">Описание:</label>
+                                <textarea id="description" name="description" class="textarea-field" required><?= htmlspecialchars($description); ?></textarea>
+
+                                <label for="price">Цена:</label>
+                                <input type="number" id="price" name="price" class="input-field" value="<?= htmlspecialchars($price); ?>" required>
+                                <button type="submit" class="btn-submit">Сохранить изменения</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,9 +174,16 @@ $conn->close();
                     <p class="add_p"><b>Описание:</b></p>
                     <p class="add_p new_add_p"><?php echo nl2br(htmlspecialchars($description)); ?></p>
                     <hr>
-                    <div style="display: flex;">
+                    <p class="price"><b><?php echo htmlspecialchars($price); ?></b> руб.</p>
+                    <div style="display: flex; border: 3px solid black; justify-content: space-evenly;">
                         <p class="price"><b><?php echo htmlspecialchars($price); ?></b> руб.</p>
-                        <button class="btn_log"><b>В корзину!</b></button>
+                        <div class="space">
+                            <form id="addToCartForm">
+                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']); ?>">
+                                <button type="submit" class="btn_log"><b>В корзину!</b></button>
+                                <p id="cartMessage"></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -233,5 +274,61 @@ $conn->close();
             </div>
         </div>
     </div>
+    <?php
+    if ($result->num_rows > 0) {
+        $product = $result->fetch_assoc();
+        // Убедитесь, что $product — это массив
+        if (is_array($product)) {
+            echo $product['id'];  // Пример использования
+        } else {
+            echo "Ошибка: не удалось получить данные о продукте.";
+        }
+    } else {
+        echo "Товар не найден.";
+    }
+    
+    ?>
 </body>
+<script>
+    // Получаем элементы модального окна
+    var modal = document.getElementById("editModal");
+    var btn = document.getElementById("editBtn");
+    var span = document.getElementById("closeModal");
+
+    // Открываем модальное окно при нажатии на кнопку
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Закрываем модальное окно при нажатии на <span> (крестик)
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Закрываем модальное окно при клике вне его
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script>
+document.getElementById('addToCartForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Предотвращаем стандартное поведение формы (перезагрузку страницы)
+
+    var formData = new FormData(this); // Собираем данные формы
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'php_script/add_to_cart.php', true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Если ответ успешен, выводим сообщение
+            document.getElementById('cartMessage').textContent = xhr.responseText;
+        } else {
+            // В случае ошибки
+            document.getElementById('cartMessage').textContent = 'Ошибка при добавлении товара в корзину';
+        }
+    };
+    xhr.send(formData); // Отправляем данные формы
+});
+</script>
 </html>

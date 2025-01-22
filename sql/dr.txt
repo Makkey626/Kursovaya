@@ -1,0 +1,9 @@
+CREATE TABLE cart (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (id),
+    FOREIGN KEY (username) REFERENCES users(username),  -- это если у вас есть таблица users
+    FOREIGN KEY (product_id) REFERENCES product(id)     -- это если у вас есть таблица products
+);

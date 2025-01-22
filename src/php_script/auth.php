@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Проверка пароля
         if (password_verify($password, $user['password'])) {
-            // Имя куки зависит от имени пользователя
-            $cookie_name = ($user['username'] === 'admin') ? "admin" : "user";
+            // Динамическое имя куки - логин пользователя
+            $cookie_name = $user['username'];  // Устанавливаем имя куки равным логину пользователя
 
             // Установить зашифрованную куки
             $encrypted_username = encrypt_cookie($user['username']);

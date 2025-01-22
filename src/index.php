@@ -86,7 +86,7 @@
                         <div class="category_text">Категории</div>
                     </div>
                     <div class="div_category">
-                        <a class="a_category" href="#"><p class="p_category">>&ensp;Новинки</p></a>
+                        <a class="a_category" href="category.php"><p class="p_category">>&ensp;Новинки</p></a>
                     </div>
                     <div class="div_category">
                         <a class="a_category" href="#"><p class="p_category">>&ensp;Нашивки флаг</p></a>
@@ -150,7 +150,7 @@
                                 $image = htmlspecialchars($row['image']); // Путь к изображению
                             ?>
                             <div class="shop">
-                                <a href="http://whomkky.ru/product_page.php?id=<?= $id ?>" style="text-decoration: none; color: inherit;">
+                                <a href="product_page.php?id=<?= $id ?>" style="text-decoration: none; color: inherit;">
                                     <div class="shop_photo">
                                         <img src="<?= $image ?>" width="64%">
                                     </div>
@@ -209,7 +209,7 @@
                         <?php
                         else:
                             // Если товары отсутствуют, выводим сообщение
-                            echo "<p>Нет товаров в категории 'забавная'.</p>";
+                            echo "<p>Нет товаров в категории 'Нашивки на спину'.</p>";
                         endif;
 
                         // Закрытие соединения
