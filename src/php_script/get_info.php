@@ -2,22 +2,22 @@
 include "php_script/db_connect.php";
 include "php_script/encrypt.php";
 
-// Проверяем, авторизован ли пользователь через куки
-if (!isset($_COOKIE['user']) && !isset($_COOKIE['admin'])) {
-    header("Location: login.php"); // Если не авторизован, перенаправляем на страницу входа
+// Проверяем, если куки пустые (независимо от имени куки)
+if (empty($_COOKIE)) {
+    header("Location: login.php"); // Перенаправляем на страницу входа, если куки отсутствуют или пустые
     exit();
 }
 
-// Определяем, какую куку расшифровывать (для админа или обычного пользователя)
-$cookie_name = isset($_COOKIE['admin']) ? 'admin' : 'user'; // Если кука admin, расшифровываем её, иначе user
+// Получаем имя пользователя из любой куки
+// Здесь мы предполагаем, что кука содержит имя пользователя (это зависит от того, как вы расшифровываете куку)
+$cookie_value = reset($_COOKIE); // Берем значение первой куки
 
 // Расшифровываем имя пользователя из куки
-$loggedInUser = decrypt_cookie($_COOKIE[$cookie_name]);
+$loggedInUser = decrypt_cookie($cookie_value);
 
 // Проверяем, удалось ли расшифровать куки
 if (!$loggedInUser) {
-    echo "Ошибка: не удалось расшифровать данные.";
-    header("Location: /login.php"); // Если ошибка расшифровки, перенаправляем на страницу входа
+    header("Location: login.php"); // Если ошибка расшифровки, перенаправляем на страницу входа
     exit();
 }
 
@@ -30,7 +30,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
 } else {
-    echo "Ошибка: пользователь не найден.";
+    header("Location: login.php"); // Если пользователь не найден в базе, перенаправляем на страницу логина
     exit();
 }
 

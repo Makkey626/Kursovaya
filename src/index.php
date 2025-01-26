@@ -50,7 +50,7 @@
                             </a>
                         </div>
                         <div class="sub_menu">
-                        <a href="<?php echo (isset($_COOKIE['admin']) || isset($_COOKIE['user'])) ? 'dashboard.php' : 'login.php'; ?>" class="a_info_header">
+                        <a href="<?php echo !empty($_COOKIE) ? 'dashboard.php' : 'login.php'; ?>" class="a_info_header">
                                 <img src="img/user-svgrepo-com.svg" width="75%" alt="">
                                 <p class="p_menu_text">Кабинет</p>
                             </a>

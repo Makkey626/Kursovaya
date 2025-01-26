@@ -1,13 +1,18 @@
 <?php
+ob_start();
 include 'db_connect.php';
 include 'encrypt.php';
 
 // Проверка, передан ли ID продукта
 $product_id = isset($_POST['product_id']) ? (int)$_POST['product_id'] : 0;
-if ($product_id === 0) {
-    echo "Продукт не выбран.";
+
+if(empty($_COOKIE)){
+    header("Location: ../login.php");
+    header('X-Debug: Redirecting'); // Отладочный заголовок для проверки
     exit();
 }
+
+
 
 // Проверяем, есть ли кука с именем пользователя
 if (isset($_COOKIE)) {
@@ -17,15 +22,10 @@ if (isset($_COOKIE)) {
             break;
         }
     }
-} else {
-    $username = ''; // Если куки нет
 }
 
-if (!$username) {
-    // Если пользователь не авторизован, выводим сообщение
-    echo "Пользователь не авторизован.";
-    exit();
-}
+
+
 
 // Обработка добавления товара в корзину
 if ($product_id > 0 && $username) {
@@ -63,4 +63,5 @@ if ($product_id > 0 && $username) {
 }
 
 $conn->close();
+ob_end_flush();
 ?>

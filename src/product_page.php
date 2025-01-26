@@ -316,6 +316,13 @@ $conn->close();
 document.getElementById('addToCartForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Предотвращаем стандартное поведение формы (перезагрузку страницы)
 
+    // Проверяем, если куки пустые
+    if (document.cookie === "") {
+        // Если куки пустые, перенаправляем на страницу логина
+        window.location.href = '/login.php';
+        return; // Завершаем выполнение скрипта
+    }
+
     var formData = new FormData(this); // Собираем данные формы
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'php_script/add_to_cart.php', true);
@@ -330,5 +337,7 @@ document.getElementById('addToCartForm').addEventListener('submit', function(eve
     };
     xhr.send(formData); // Отправляем данные формы
 });
+
+
 </script>
 </html>
