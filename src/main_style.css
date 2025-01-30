@@ -629,3 +629,36 @@ button, .btn-submit {
 .space{
     width: 60%;
 }
+
+.info_for_delivere {
+    border-radius: 10px;
+    border: 2px solid gray;
+    width: 100%;
+    margin-top: 14px;
+}
+
+.info_dev{
+    display: flex;
+    padding: 10px 0px 8px 10px;
+}   
+.acc_p{
+    margin-top: 1px;
+    font-size: 14pt;
+    color: gray;
+    margin-left: 10px;
+}
+
+.acc_p-form{
+    font-size: 12pt;
+    margin-left: 0px;
+    color: #000000;
+}
+
+.form_acc{
+    padding: 10px 0px 8px 12px ;
+}
+
+.input_acc{
+    margin: 10px;
+    width: 80%;
+}

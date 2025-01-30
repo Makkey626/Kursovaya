@@ -56,7 +56,7 @@
                             </a>
                         </div>
                         <div class="sub_menu">
-                            <a href="#" class="a_info_header">
+                            <a href="<?php echo !empty($_COOKIE) ? 'buckket.php' : 'login.php'; ?>" class="a_info_header">
                                 <img src="img/bucket-svgrepo-com.svg" width="75%" alt="">
                                 <p class="p_menu_text">Корзина</p>
                             </a>

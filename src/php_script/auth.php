@@ -18,12 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Проверка пароля
         if (password_verify($password, $user['password'])) {
-            // Динамическое имя куки - логин пользователя
-            $cookie_name = $user['username'];  // Устанавливаем имя куки равным логину пользователя
-
-            // Установить зашифрованную куки
+            // Зашифровываем имя пользователя
             $encrypted_username = encrypt_cookie($user['username']);
-            setcookie($cookie_name, $encrypted_username, time() + (86400 * 30), "/"); // Кука на 30 дней
+
+            // Устанавливаем куку с именем 'username_cookie' и зашифрованным значением
+            setcookie('username', $encrypted_username, time() + (86400 * 30), "/"); // Кука на 30 дней
 
             // Перенаправление пользователя
             header("Location: ../index.php"); // Переход на панель админа или главную страницу
